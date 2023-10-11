@@ -20,7 +20,7 @@ _add the attribute `id='send` to the button_
 
 ![Alt text](assets/response_with_date.png)
 
-4. The server currently returns a 501 error when a `DELETE` request is received. Implement the `do_DELETE` file in the `server.py` file.
+4. The server currently returns a 501 error when a `DELETE` request is received. We want to explicitly restrict method and inform the user that it is forbidden. Implement the `do_DELETE` file in the `server.py` file, return the appropriate HTTP response code and a response as shown below.
 
 ![Alt text](assets/delete.png)
 
