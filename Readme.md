@@ -10,9 +10,9 @@
 
 2. The `do_GET` method is called when a `GET` request is received by the server. The server will return the file [index.html](public/index.html) in  the public folder. Modify the html file to match the below image.
 
-_add the attribute `id='name` to the input field_
+_add the attribute `id='name'` to the input field_
 
-_add the attribute `id='send` to the button_
+_add the attribute `id='send'` to the button_
 
 ![Alt text](assets/html.png)
 
