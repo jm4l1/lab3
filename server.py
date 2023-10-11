@@ -22,7 +22,7 @@ class handler(BaseHTTPRequestHandler):
         # read content length header
         content_len = int(self.headers.get('Content-Length'))
 
-        # get contentbody
+        # get content-body
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
 
