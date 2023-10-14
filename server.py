@@ -19,6 +19,8 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(bytes(file_lines, 'utf8'))
 
     def do_POST(self):
+        self.send_header('content-type', 'text/html')
+        self.end_headers()
         # read content length header
         content_len = int(self.headers.get('Content-Length'))
         # get content-body
