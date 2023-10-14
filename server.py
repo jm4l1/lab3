@@ -51,4 +51,5 @@ class handler(BaseHTTPRequestHandler):
 
 with HTTPServer(('', PORT), handler) as server:
     # add log to say server is running
+    print("We are booming.")
     server.serve_forever()
