@@ -13,10 +13,10 @@
     <div id="main">
         <div>My name is Ake and this is my Lab project.</div>
         <h2>What is your name?</h2>
+        
         <id='name'><label for="fname"> Name:</label></id>
         <input type="text" id="fname" name="fname"><br>
         <id='send'><button type="button">Send</button></id>
-        
     </div>
             <div id="response" hidden>
                 <p></p>
@@ -28,6 +28,7 @@
                 const responseDiv = document.getElementById('response');
                 const firstParagraph = document.querySelector('#response p:first-of-type');
                 const lastParagraph = document.querySelector('#response p:last-of-type');
+                
 
                 input.addEventListener('click', async () => {
                     const name = nameField.value;

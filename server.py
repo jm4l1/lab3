@@ -8,10 +8,13 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         # set response code
         self.send_response(200)
+        self.send_header('content-type', 'text/html')
+        self.end_headers()
+
         if self.path == '/favicon.ico':
             return
         resource = 'index.html' if self.path == '/' else self.path
-        with open(f"public/{resource}", 'r') as html_file_reader:
+        with open(f"C:/Users/gamer/swen2003/lab3/public/{resource}", 'r') as html_file_reader:
             file_lines = html_file_reader.read()
             self.wfile.write(bytes(file_lines, 'utf8'))
 
@@ -21,6 +24,8 @@ class handler(BaseHTTPRequestHandler):
         # get content-body
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
+        now = date_time.now()
+        date_time = now.strftime("%d/%m/%y")
         # set response code
         self.send_response(200)
         # set headers
@@ -30,12 +35,11 @@ class handler(BaseHTTPRequestHandler):
         # set data
         message = {}
         message['response'] = "hello " + post_body['name']
+        message['date']= date_time
 
         self.wfile.write(bytes(json.dumps(message), "utf8"))
         
-        from datetime import date
-        d = date.fromordinal(730920)
-        d.strftime("%A %d. %B %Y")
+        
 
     def do_PUT(self):
         # set response code
