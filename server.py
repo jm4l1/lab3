@@ -10,9 +10,11 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(200)
         if self.path == '/favicon.ico':
             return
+        self.end_headers()
         resource = 'index.html' if self.path == '/' else self.path
         with open(f"public/{resource}", 'r') as html_file_reader:
             file_lines = html_file_reader.read()
+            print(file_lines)
             self.wfile.write(bytes(file_lines, 'utf8'))
 
     def do_POST(self):
