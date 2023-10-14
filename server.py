@@ -32,6 +32,10 @@ class handler(BaseHTTPRequestHandler):
         message['response'] = "hello " + post_body['name']
 
         self.wfile.write(bytes(json.dumps(message), "utf8"))
+        
+        from datetime import date
+        d = date.fromordinal(730920)
+        d.strftime("%A %d. %B %Y")
 
     def do_PUT(self):
         # set response code
