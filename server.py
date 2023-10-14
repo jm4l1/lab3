@@ -7,6 +7,7 @@ PORT = 8080
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
+        self.end_headers()
         if self.path == '/favicon.ico':
             return
         resource = 'index.html' if self.path == '/' else self.path
