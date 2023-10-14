@@ -1,12 +1,11 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-# Specify a port value for your server
-PORT = 8080
+from datetime import datetime
 
+PORT = 8080
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        # set response code
         self.send_response(200)
         if self.path == '/favicon.ico':
             return
@@ -16,39 +15,45 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(bytes(file_lines, 'utf8'))
 
     def do_POST(self):
-        # read content length header
         content_len = int(self.headers.get('Content-Length'))
-        # get content-body
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
-        # set response code
+
         self.send_response(200)
-        # set headers
         self.send_header('content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
 
-        # set data
-        message = {}
-        message['response'] = "hello " + post_body['name']
-
+        message = {
+            'response': "Hello " + post_body['name'],
+            'date': datetime.now().strftime('%A %d, %B %Y')
+        }
         self.wfile.write(bytes(json.dumps(message), "utf8"))
 
-    def do_PUT(self):
-        # set response code
-        self.send_response(405)
-
-        # set headers
+    def do_DELETE(self):
+        self.send_response(403)
         self.send_header('content-type', 'text/html')
         self.end_headers()
-
-        message = "<body><div>Method Not allowed </div><body>"
+        message = "<body><div>The DELETE method is forbidden on this server.</div><body>"
         self.wfile.write(bytes(message, "utf8"))
 
-    # implement handler for DELETE here
-    # def do_DELETE(self):
-        # pass
-
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
+        self.end_headers()
 
 with HTTPServer(('', PORT), handler) as server:
-    # add log to say server is running
+    print(f"Server is running")
     server.serve_forever()
+
+
+
+
+
+
+
+
+
+
