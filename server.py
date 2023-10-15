@@ -55,8 +55,8 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(message, "utf8"))
 
     # implement handler for DELETE here
-    # def do_DELETE(self):
-        # pass
+    def do_DELETE(self):
+         pass
 
 
 with HTTPServer(('', PORT), handler) as server:
