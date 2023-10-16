@@ -1,3 +1,4 @@
+from datetime import date
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 # Specify a port value for your server
@@ -30,8 +31,9 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
         # set data
-        message = {}
-        message['response'] = "hello " + post_body['name']
+        message = {"name":"My name"}
+        today=date.today()
+        message['response'] = "hello " + post_body['name'] +" "+  today.strftime("%B %d, %Y")
 
         self.wfile.write(bytes(json.dumps(message), "utf8"))
 
@@ -47,10 +49,11 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(message, "utf8"))
 
     # implement handler for DELETE here
-    # def do_DELETE(self):
-        # pass
+    def do_DELETE(self):
+        pass
 
 
 with HTTPServer(('', PORT), handler) as server:
+    print("server is running")
     # add log to say server is running
     server.serve_forever()
