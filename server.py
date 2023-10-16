@@ -3,6 +3,8 @@ import json
 # Specify a port value for your server
 PORT = 8080
 
+from datetime import datetime
+
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -31,8 +33,13 @@ class handler(BaseHTTPRequestHandler):
 
         # set data
         message = {}
-        message['response'] = "hello " + post_body['name']
+        #message['response'] = "hello " + post_body['name']
+        message= {
+            'response':"Hello " + post_body['name'],
+            'date': datetime.now().strftime("%A %d %B %Y")
+        }
 
+        
         self.wfile.write(bytes(json.dumps(message), "utf8"))
 
     def do_PUT(self):
@@ -48,9 +55,20 @@ class handler(BaseHTTPRequestHandler):
 
     # implement handler for DELETE here
     # def do_DELETE(self):
-        # pass
+    def do_DELETE(self):
+        # set response code
+        self.send_response(403)
+
+        # set headers
+        self.send_header('content-type', 'text/html')
+        self.end_headers()
+
+        message = {}
+        message['response'] = "You cannot do that"
+        self.wfile.write(bytes(message, "utf8"))
+
 
 
 with HTTPServer(('', PORT), handler) as server:
-    # add log to say server is running
+    print(f"Server is Running")
     server.serve_forever()
