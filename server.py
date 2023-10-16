@@ -14,7 +14,6 @@ class handler(BaseHTTPRequestHandler):
         resource = 'index.html' if self.path == '/' else self.path
         with open(f"public/{resource}", 'r') as html_file_reader:
             file_lines = html_file_reader.read()
-            print(file_lines)
             self.wfile.write(bytes(file_lines, 'utf8'))
 
     def do_POST(self):
