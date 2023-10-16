@@ -1,28 +1,31 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from datetime import datetime
 import json
 # Specify a port value for your server
 PORT = 8080
-
+print("Server is running")
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         # set response code
         self.send_response(200)
-
-        # set headers
-        self.send_header('content-type', 'text/html')
+        self.send_header('content-type',"text/html")
         self.end_headers()
 
-        # set data
-        message = "<body><div>Hello, SWEN2003</div><body>"
-        self.wfile.write(bytes(message, "utf8"))
+
+        self.send_response(200)
+        if self.path == '/favicon.ico':
+            return
+        resource = 'index.html' if self.path == '/' else self.path
+        with open(f"C:/Users/darri/lab3/{resource}", 'r') as html_file_reader:
+            file_lines = html_file_reader.read()
+            self.wfile.write(bytes(file_lines, 'utf8'))
 
     def do_POST(self):
 
-        # read content length header
+         # read content length header
         content_len = int(self.headers.get('Content-Length'))
-
-        # get contentbody
+        # get content-body
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
 
@@ -34,10 +37,16 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
 
         # set data
+        today = datetime.now()
+
+        date = today.strftime("%A,%d %B %Y")
+
         message = {}
-        message['response'] = "hello " + post_body['name']
+        message['response'] = "hello " + post_body['name'] 
+        message['date'] = date
 
         self.wfile.write(bytes(json.dumps(message), "utf8"))
+
 
     def do_PUT(self):
         # set response code
@@ -50,6 +59,25 @@ class handler(BaseHTTPRequestHandler):
         message = "<body><div>Method Not allowed </div><body>"
         self.wfile.write(bytes(message, "utf8"))
 
+    def do_DELETE(self):
+          # read content length header
+        content_len = int(self.headers.get('Content-Length'))
+        # get content-body
+        post_body = self.rfile.read(content_len)
+        post_body = json.loads(post_body)
+
+        # set response code
+        self.send_response(200)
+
+        # set headers
+        self.send_header('content-type', 'application/json')
+        self.end_headers()
+
+        message = {}
+        message['response'] = "You cannot do that"
+
+        self.wfile.write(bytes(json.dumps(message), "utf8"))
 
 with HTTPServer(('', PORT), handler) as server:
     server.serve_forever()
+   

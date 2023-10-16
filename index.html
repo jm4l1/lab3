@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>SWEN 20003</title>
+</head>
+
+<body>
+    <h1>Welcome to SWEN 2003</h1>
+    <div id="main">
+        <div>Hello, SWEN2003</div>
+        <!-- Add code changes here-->
+        <p>My name is Darrian and this is my Lab Project</p>
+        <p>What is your name?</p>
+        <input type = "text" id ="name">
+        <input type = "button" id ="send" value="send">
+        <div>
+            <div id="response" hidden>
+                <p></p>
+                <p></p>
+            </div>
+            <script type="module">
+                const input = document.getElementById('send');
+                const nameField = document.getElementById('name');
+                const responseDiv = document.getElementById('response');
+                const firstParagraph = document.querySelector('#response p:first-of-type');
+                const lastParagraph = document.querySelector('#response p:last-of-type');
+
+                input.addEventListener('click', async () => {
+                    const name = nameField.value;
+                    if (!name) {
+                        return;
+                    }
+                    try {
+                        responseDiv.removeAttribute('hidden');
+                        const response = await fetch('http://localhost:8080', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name }) });
+                        const body = await response.json()
+                        firstParagraph.innerText = body.response;
+                        lastParagraph.innerText = body.date ? `Today is ${body.date}` : '';
+                    } catch (err) {
+
+                    }
+                })
+            </script>
+</body>
+
+</html>
