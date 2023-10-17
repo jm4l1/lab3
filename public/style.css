@@ -1,3 +1,108 @@
 * {
     box-sizing: border-box;
 }
+/* General Styles */
+body {
+    background-color: #ffccff;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+  }
+  
+  /* Hello Kitty Header */
+  h1 {
+    background: #ff66b2;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Hello Kitty Image */
+  #hello-kitty-image {
+    width: 200px;
+    margin: 20px auto;
+  }
+  
+  /* Hello Kitty Text */
+  h2 {
+    color: #ff66b2;
+    font-size: 18px;
+    margin: 20px;
+  }
+  
+  /* Links */
+  a {
+    color: #ff66b2;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  a:hover {
+    color: #ff0066;
+  }
+  
+  /* Button */
+  button {
+    background: #ff66b2;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #ff0066;
+  }
+  
+  /* Footer */
+  #hello-kitty-footer {
+    background: #ff66b2;
+    color: white;
+    padding: 10px;
+  }
+  
+  /* Media Queries for Responsiveness (adjust as needed) */
+  @media (max-width: 768px) {
+    /* Modify styles for smaller screens here */
+    #hello-kitty-image {
+      width: 150px;
+    }
+  }
+  /* Text Field Container */
+.text-field-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+  }
+  
+  /* Text Field */
+  input[type="text"] {
+    width: 300px;
+    height: 40px;
+    border: 2px solid #ff66b2;
+    border-radius: 20px;
+    padding-right: 20px;
+    font-size: 16px;
+    outline: palevioletred;
+    padding-right: 20px;
+  }
+  
+  /* Hello Kitty Label */
+  .hello-kitty-label {
+    color: #ff66b2;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  /* Add Hello Kitty Image to the Text Field */
+  .hello-kitty-image {
+    width: 50px;
+    height: 30px;
+    background-image: url('https://logos-world.net/wp-content/uploads/2023/04/Hello-Kitty-Logo.png'); /* Replace with the path to your Hello Kitty image */
+    background-size: cover;
+    cursor: pointer;
+  }
+  

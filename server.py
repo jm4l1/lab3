@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from datetime import datetime
 # Specify a port value for your server
 PORT = 8080
 
@@ -30,7 +31,9 @@ class handler(BaseHTTPRequestHandler):
 
         # set data
         message = {}
-        message['response'] = "hello " + post_body['name']
+        message['response'] = "Hello, " + post_body['name']
+        message['date'] = datetime.now().strftime("%A %d, %B %Y")
+        
 
         self.wfile.write(bytes(json.dumps(message), "utf8"))
 
@@ -45,11 +48,21 @@ class handler(BaseHTTPRequestHandler):
         message = "<body><div>Method Not allowed </div><body>"
         self.wfile.write(bytes(message, "utf8"))
 
-    # implement handler for DELETE here
-    # def do_DELETE(self):
+    # implement handler for DELETE here  
+    def do_DELETE(self):
+        self.send_response(403)
+        self.send_header('content-type','application/json')
+        self.end_headers()
+        # set data
+        message = {}
+        message['response'] = "YOU CANNOT DO THAT!"
+
+        self.wfile.write(bytes(json.dumps(message), "utf8"))
+
         # pass
 
 
 with HTTPServer(('', PORT), handler) as server:
     # add log to say server is running
+    print("The server is running")
     server.serve_forever()
