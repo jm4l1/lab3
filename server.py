@@ -58,14 +58,14 @@ class handler(BaseHTTPRequestHandler):
     def do_DELETE(self):
         # set response code
         self.send_response(403)
-        
+
         # set headers
         self.send_header('content-type', 'text/html')
         self.end_headers()
 
         message = {}
         message['response'] = "You cannot do that"
-        self.wfile.write(bytes(message, "utf8"))
+        self.wfile.write(bytes(json.dumps(message), "utf8"))
 
 
 
