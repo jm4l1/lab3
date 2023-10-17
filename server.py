@@ -58,13 +58,7 @@ class handler(BaseHTTPRequestHandler):
     def do_DELETE(self):
         # set response code
         self.send_response(403)
-
-        #read content length header
-        content_len = int(self.headers.get('Content-Length'))
-        # get content-body
-        post_body = self.rfile.read(content_len)
-        post_body = json.loads(post_body)
-
+        
         # set headers
         self.send_header('content-type', 'text/html')
         self.end_headers()
