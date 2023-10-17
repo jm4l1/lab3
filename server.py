@@ -1,5 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+from datetime import datetime
 # Specify a port value for your server
 PORT = 8080
 
@@ -8,13 +9,13 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         # set response code
         self.send_response(200)
-        self.send_header('content-type', 'text/html')
+        #self.send_header('content-type', 'text/html')
         self.end_headers()
 
         if self.path == '/favicon.ico':
             return
         resource = 'index.html' if self.path == '/' else self.path
-        with open(f"C:/Users/gamer/swen2003/lab3/public/{resource}", 'r') as html_file_reader:
+        with open(f"public/{resource}", 'r') as html_file_reader:
             file_lines = html_file_reader.read()
             self.wfile.write(bytes(file_lines, 'utf8'))
 
@@ -26,8 +27,6 @@ class handler(BaseHTTPRequestHandler):
         # get content-body
         post_body = self.rfile.read(content_len)
         post_body = json.loads(post_body)
-        now = date_time.now()
-        date_time = now.strftime("%d/%m/%y")
         # set response code
         self.send_response(200)
         # set headers
@@ -37,7 +36,7 @@ class handler(BaseHTTPRequestHandler):
         # set data
         message = {}
         message['response'] = "hello " + post_body['name']
-        message['date']= date_time
+        message['date']= datetime.now().strftime("%A %d, %B %Y")
 
         self.wfile.write(bytes(json.dumps(message), "utf8"))
         
@@ -56,7 +55,15 @@ class handler(BaseHTTPRequestHandler):
 
     # implement handler for DELETE here
     def do_DELETE(self):
-         pass
+         self.send_response(403)
+         self.send_header('content-type', 'application/json')
+         self.end_headers()
+         
+         message = {}
+         message['response'] = "You cannot do that"
+
+         self.wfile.write(bytes(json.dumps(message), "utf8"))
+         
 
 
 with HTTPServer(('', PORT), handler) as server:
