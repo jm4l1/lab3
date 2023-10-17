@@ -76,5 +76,5 @@ class handler(BaseHTTPRequestHandler):
 
 
 with HTTPServer(('', PORT), handler) as server:
-    print(f"Server is Running")
+    print("Server is Running")
     server.serve_forever()
